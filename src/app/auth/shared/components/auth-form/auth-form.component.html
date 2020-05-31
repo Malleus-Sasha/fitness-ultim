@@ -7,7 +7,7 @@
         <input 
           type="email" 
           placeholder="Email address"
-          FormContralName="email">
+          formControlName="email">
       </label>
       <label>
         <input 
@@ -15,10 +15,13 @@
           placeholder="Enter password"
           formControlName="password">
       </label>
-      <div class="error" >
+
+      {{ emailFormat }}
+      <div class="error" *ngIf="emailFormat">
         Invalid email format
       </div>
-      <div class="error" >
+
+      <div class="error" *ngIf="passwordInvalid">
         Password is required
       </div>
 

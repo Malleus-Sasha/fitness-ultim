@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-auth-form',
@@ -7,6 +7,8 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./auth-form.component.scss']
 })
 export class AuthFormComponent implements OnInit {
+
+  @Output() submitted = new EventEmitter<FormGroup>();
 
   form = this.fb.group({
     email: ['', Validators.email],
@@ -21,7 +23,19 @@ export class AuthFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.form);
+    if (this.form.valid) {
+      this.submitted.emit(this.form);
+    }
+  }
+
+  get passwordInvalid() {
+    const control = this.form.get('password');
+    return control.hasError('required') && control.touched;
+  }
+
+  get emailFormat() {
+    const control = this.form.get('email');
+    return control.hasError('email') && control.touched;
   }
 
 }
