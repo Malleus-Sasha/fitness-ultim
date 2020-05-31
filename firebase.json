@@ -1,0 +1,31 @@
+{
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "hosting": {
+    "public": "dist/fitness-ultim",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      ".firebaserc",
+      ".vscode",
+      ".git",
+      ".gitignore",
+      ".editorconfig",
+      "src/**/.*",
+      "database.rules.json",
+      "package.json",
+      "README.md",
+      "tsconfig.json",
+      "webpack.config.js",
+      "yarn.lock"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
