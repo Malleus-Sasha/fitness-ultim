@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { AuthService } from 'src/app/auth/shared/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -8,13 +9,23 @@ import { FormGroup } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  error: string;
+
+  constructor(
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
   }
 
-  registerUser(event: FormGroup) {
+  async registerUser(event: FormGroup) {
     console.log(event.value);
+    const { email, password } = event.value;
+    try {
+      await this.authService.createUser(email, password);
+    } catch (err) {
+      this.error = err.message;
+    }
   }
 
 }
