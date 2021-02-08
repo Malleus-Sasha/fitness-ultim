@@ -35,6 +35,10 @@ export class AuthService {
     private af: AngularFireAuth
   ) { }
 
+  get authState() {
+    return this.af.authState;
+  }
+
   createUser(email: string, password: string) {
     // this.af.auth.create...
     return this.af.createUserWithEmailAndPassword(email, password);
