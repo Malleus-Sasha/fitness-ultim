@@ -39,6 +39,15 @@ export class AuthService {
     return this.af.authState;
   }
 
+  get user() {
+    // .user
+    return this.af.user;
+  }
+
+  get idToken() {
+    return this.af.idToken;
+  }
+
   createUser(email: string, password: string) {
     // this.af.auth.create...
     return this.af.createUserWithEmailAndPassword(email, password);
