@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable, Subscription } from 'rxjs';
 import { Meal, MealsService } from 'src/app/health/shared/services/meals/meals.service';
 import { Store } from 'store';

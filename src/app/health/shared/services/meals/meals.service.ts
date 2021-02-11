@@ -25,7 +25,7 @@ export class MealsService {
         console.log('--- tap<Meal[]>', next);
         this.store.set('meals', next);
       }
-    ));
+      ));
 
   constructor(
     private store: Store,
@@ -33,9 +33,13 @@ export class MealsService {
     private authService: AuthService
   ) {
     console.log(this.store.value.user.uid);
-   }
+  }
 
   get uid() {
     return this.store.value.user.uid;
+  }
+
+  addMeal(meal: Meal) {
+    return this.db.list(`meals/${this.uid}`).push(meal);
   }
 }
