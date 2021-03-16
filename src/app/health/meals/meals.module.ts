@@ -12,6 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 const ROUTES: Routes = [
   { path: '', component: MealsComponent },
   { path: 'new', component: MealComponent },
+  { path: ':id', component: MealsComponent }
 ];
 
 @NgModule({
