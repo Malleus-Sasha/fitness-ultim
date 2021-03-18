@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Meal, MealsService } from 'src/app/health/shared/services/meals/meals.service';
 
 @Component({
@@ -7,14 +9,26 @@ import { Meal, MealsService } from 'src/app/health/shared/services/meals/meals.s
   templateUrl: './meal.component.html',
   styleUrls: ['./meal.component.scss']
 })
-export class MealComponent implements OnInit {
+export class MealComponent implements OnInit, OnDestroy {
+
+  meal$: Observable<Meal>;
+  subscription: Subscription;
 
   constructor(
     private mealsService: MealsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.subscription = this.mealsService.meals$.subscribe();
+    this.meal$ = this.route.params.pipe(
+      switchMap(param => this.mealsService.getMeal(param.id))
+    )
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   async addMeal(event: Meal) {
